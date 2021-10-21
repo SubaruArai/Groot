@@ -1,23 +1,21 @@
-name: win_build
+name: linux build
 
 on: [push, pull_request]
 
 jobs:
-  job:
-    name: build with msvc
-    runs-on: windows-2019
+  build:
+    name: build on ubuntu
+    runs-on: ubuntu-20.04
     env:
       CMAKE_BUILD_DIR: ${{ github.workspace }}/build/
     steps:
       - uses: actions/checkout@v2
         with:
           submodules: true
-
-      - name: install Qt
-        uses: jurplel/install-qt-action@v2
-        with:
-          version: "5.15.2"
-          arch: "win64_msvc2019_64"
+      
+      - name: install dependencies
+        run: |
+          sudo apt install -y qtbase5-dev libqt5svg5-dev libzmq3-dev libdw-dev
 
       - name: cmake generate makefile
         run: |
