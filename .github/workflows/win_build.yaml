@@ -19,7 +19,9 @@ jobs:
           version: "5.15.2"
           arch: "win64_msvc2019_64"
 
-      - name: build
+      - name: cmake generate cache
         run: |
-          mkdir "${{ env.CMAKE_BUILD_DIR }}"
+          cmake -B "${{ env.CMAKE_BUILD_DIR }}"
+      - name: cmake build
+        run: |
           cmake --build "${{ env.CMAKE_BUILD_DIR }}"
