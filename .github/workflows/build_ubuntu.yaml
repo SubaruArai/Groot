@@ -1,4 +1,4 @@
-name: linux build
+name: "build: ubuntu20.04"
 
 on: [push, pull_request]
 

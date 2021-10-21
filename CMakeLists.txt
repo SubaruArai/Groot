@@ -145,6 +145,11 @@ endif()
 
 QT5_WRAP_UI(FORMS_HEADERS ${FORMS_UI})
 
+add_library(behavior_tree_editor SHARED
+    ${APP_CPPS}
+    ${FORMS_HEADERS}
+)
+
 SET(GROOT_DEPENDENCIES QtNodeEditor )
 
 if(ament_cmake_FOUND)
@@ -159,8 +164,10 @@ if( ZMQ_FOUND )
     SET(GROOT_DEPENDENCIES ${GROOT_DEPENDENCIES} zmq)
 endif()
 
+target_link_libraries(behavior_tree_editor ${GROOT_DEPENDENCIES} )
+
 add_executable(Groot ./bt_editor/main.cpp ${APP_CPPS} ${FORMS_HEADERS} ${RESOURCE_FILES})
-target_link_libraries(Groot ${GROOT_DEPENDENCIES})
+target_link_libraries(Groot behavior_tree_editor )
 
 add_subdirectory(test)
 
