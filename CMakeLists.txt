@@ -18,6 +18,11 @@ else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 endif()
 
+########### for msvc compiler ###############################
+if(MSVC)
+    set(CMAKE_CXX_FLAGS "/EHsc")
+endif(MSVC)
+
 #############################################################
 find_package(ament_cmake QUIET)
 if(ament_cmake_FOUND)
@@ -42,10 +47,10 @@ elseif( CATKIN_DEVEL_PREFIX OR CATKIN_BUILD_BINARY_PACKAGE)
   message(STATUS "------------------------------------------------")
 
   catkin_package(
-    INCLUDE_DIRS 
+    INCLUDE_DIRS
     LIBRARIES qt_node_editor
     CATKIN_DEPENDS behaviortree_cpp_v3
-    DEPENDS 
+    DEPENDS
     )
 endif()
 #############################################################
