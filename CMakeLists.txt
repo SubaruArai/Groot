@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.4)
 
 # Update the policy setting to avoid an error when loading the ament_cmake package
 # at the current cmake version level
@@ -21,6 +21,7 @@ endif()
 ########### for msvc compiler ###############################
 if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc")
+    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS 1)
 endif(MSVC)
 
 #############################################################
@@ -166,7 +167,7 @@ endif()
 
 target_link_libraries(behavior_tree_editor ${GROOT_DEPENDENCIES} )
 
-add_executable(Groot ./bt_editor/main.cpp ${APP_CPPS} ${FORMS_HEADERS} ${RESOURCE_FILES})
+add_executable(Groot ./bt_editor/main.cpp ${RESOURCE_FILES})
 target_link_libraries(Groot behavior_tree_editor )
 
 add_subdirectory(test)
