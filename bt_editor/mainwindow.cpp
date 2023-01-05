@@ -154,7 +154,7 @@ MainWindow::MainWindow(GraphicMode initial_mode, QWidget *parent) :
     {
         if (prev_ID == new_ID)
             return;
-            
+
         for (int index = 0; index < ui->tabWidget->count(); index++)
         {
             if( ui->tabWidget->tabText(index) == prev_ID)
@@ -704,7 +704,6 @@ void MainWindow::on_actionSave_triggered()
     if (file.open(QIODevice::WriteOnly)) {
         QTextStream stream(&file);
         stream << xml_text << endl;
-        file.close();
     }
 
     directory_path = QFileInfo(fileName).absolutePath();
@@ -777,6 +776,14 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
     {
         qDebug() << "B " << event->type();
         return QMainWindow::eventFilter(obj,event);
+    }
+}
+
+void MainWindow::showEvent(QShowEvent *event)
+{
+    if (!event->spontaneous()) {
+        currentTabInfo()->zoomHomeView();
+        ui->centralwidget->setFocus();
     }
 }
 
